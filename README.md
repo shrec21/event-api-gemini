@@ -15,6 +15,9 @@ Bug-lab issues:
 
 Tie-breaker incorrectly prefers higher id instead of earlier createdAt
 computePromotionScore gives a disproportionate “age boost” using createdAt.getTime() / 1000, but only when vip !== null, making scoring inconsistent and unintuitive
+
+
+
 2. hasPermission(user, requiredPermission)
 
 Checks whether a user has the required permission bit.
@@ -23,6 +26,9 @@ Bug-lab issue:
 
 Uses bitwise OR (|) instead of AND (&)
 Result: almost always evaluates to a truthy value → over-permissive access control
+
+
+
 3. cancelRsvpAndNotifyNext(fetchNextUser, sendEmail, scheduleTask?)
 
 Cancels an RSVP and triggers a background task to notify the next user.
@@ -40,6 +46,9 @@ Unsafe usage of non-null assertions:
 nextUser!.email
 formatWelcomeEmail(nextUser)
 Can lead to runtime crashes
+
+
+
 4. buildNotifications(recipients, templateFactory?)
 
 Builds notification payloads for a list of recipients.
@@ -53,6 +62,9 @@ Bug-lab issue:
 Uses a module-level variable leakedRecipientEmail
 Overwrites .to for all messages in final mapping
 Result: all notifications may be sent to the last recipient (data leak / cross-talk bug)
+
+
+
 5. createEventWithSoftDeleteBug(existingEvents, input)
 
 Creates a new event if no existing event shares the same slug.
@@ -61,6 +73,9 @@ Bug-lab issue:
 
 Duplicate check ignores deletedAt
 Soft-deleted events still block reuse of the same slug
+
+
+
 6. softDeleteEvent(events, eventId)
 
 Marks an event as deleted.
@@ -73,6 +88,9 @@ Sets deletedAt = now for matching event
 Status:
 
 ✅ No known issues (reference implementation)
+
+
+
 7. validateCapacity({ capacity })
 
 Validates and returns event capacity.
