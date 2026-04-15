@@ -8,20 +8,24 @@ datasource db {
 }
 
 model User {
-  id             Int     @id @default(autoincrement())
-  email          String  @unique
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
   password       String
   organizedEvents Event[] @relation("Organizer")
   rsvps          RSVP[]
 }
 
 model Event {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
+  // [Added for B5 support]: Unique slug for the event
+  slug        String?   @unique 
   title       String
   description String?
   capacity    Int
   organizerId Int
-  organizer   User     @relation("Organizer", fields: [organizerId], references: [id])
+  // [Added for B5 support]: Soft delete marker
+  deletedAt   DateTime? 
+  organizer   User      @relation("Organizer", fields: [organizerId], references: [id])
   rsvps       RSVP[]
 }
 
@@ -29,10 +33,11 @@ model RSVP {
   id        Int      @id @default(autoincrement())
   eventId   Int
   userId    Int
-  status    String   // "CONFIRMED" or "WAITLISTED"
+  status    String   
   createdAt DateTime @default(now())
 
-  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  // [BUG B5 INJECTED]: Removed 'onDelete: Cascade' to cause foreign key constraint failures on soft delete.
+  event     Event    @relation(fields: [eventId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
 
   @@unique([eventId, userId])
