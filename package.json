@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "ts-node src/server.ts",
     "test": "jest",
+    "test:bug-lab": "jest tests/bug-lab.test.ts --runInBand",
     "db:setup": "prisma generate && prisma db push"
   },
   "dependencies": {
