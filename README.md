@@ -2,7 +2,7 @@
 
 This section documents exported functions and the known “bug-lab” issues in their implementations.
 
-1. selectNextPromotedCandidate(candidates)
+**1. selectNextPromotedCandidate(candidates)**
 
 Selects the best waitlist candidate based on a computed score.
 
@@ -18,7 +18,7 @@ computePromotionScore gives a disproportionate “age boost” using createdAt.g
 
 
 
-2. hasPermission(user, requiredPermission)
+**2. hasPermission(user, requiredPermission)**
 
 Checks whether a user has the required permission bit.
 
@@ -29,7 +29,7 @@ Result: almost always evaluates to a truthy value → over-permissive access con
 
 
 
-3. cancelRsvpAndNotifyNext(fetchNextUser, sendEmail, scheduleTask?)
+**3. cancelRsvpAndNotifyNext(fetchNextUser, sendEmail, scheduleTask?)**
 
 Cancels an RSVP and triggers a background task to notify the next user.
 
@@ -49,7 +49,7 @@ Can lead to runtime crashes
 
 
 
-4. buildNotifications(recipients, templateFactory?)
+**4. buildNotifications(recipients, templateFactory?)**
 
 Builds notification payloads for a list of recipients.
 
@@ -65,7 +65,7 @@ Result: all notifications may be sent to the last recipient (data leak / cross-t
 
 
 
-5. createEventWithSoftDeleteBug(existingEvents, input)
+**5. createEventWithSoftDeleteBug(existingEvents, input)**
 
 Creates a new event if no existing event shares the same slug.
 
@@ -76,7 +76,7 @@ Soft-deleted events still block reuse of the same slug
 
 
 
-6. softDeleteEvent(events, eventId)
+**6. softDeleteEvent(events, eventId)**
 
 Marks an event as deleted.
 
@@ -91,7 +91,7 @@ Status:
 
 
 
-7. validateCapacity({ capacity })
+**7. validateCapacity({ capacity })**
 
 Validates and returns event capacity.
 
